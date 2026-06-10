@@ -6,12 +6,65 @@ using UnityRandom = UnityEngine.Random;
 
 namespace AtMycelia.HyphaTween
 {
-    public class DefaultTweenAdapter : ScriptableObject, ITransformTweenAdapter, IGeneralTweenAdapter<Vector2>,
+    public class DefaultTweenAdapter : ScriptableObject, IGeneralTweenAdapter<Vector2>,
         IGeneralTweenAdapter<Vector3>, IGeneralTweenAdapter<float>, IGeneralTweenAdapter<int>,
         IGraphicTweenAdapter, ICameraTweenAdapter, IAudioSourceTweenAdapter,
         IMaterialTweenAdapter, IRectTransformTweenAdapter, IAudioFilterTweenAdapter, ILightTweenAdapter,
         IPositionShaker
     {
+        private const string _assetNameNoExtension = "DefaultTweenAdapter";
+        private const string _assetsResourcesPath = "AtMycelia/HyphaTween/DefaultTweenAdapter";
+        private const string _packageResourcesPath = "Runtime/DefaultTweenAdapter";
+
+        private static DefaultTweenAdapter _s;
+        public static DefaultTweenAdapter S
+        {
+            get
+            {
+                if (_s == null)
+                {
+                    _s = LoadSingleton();
+                }
+
+                return _s;
+            }
+        }
+
+        public static DefaultTweenAdapter Instance => S;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetSingleton()
+        {
+            _s = null;
+        }
+
+        private static DefaultTweenAdapter LoadSingleton()
+        {
+            DefaultTweenAdapter loaded = Resources.Load<DefaultTweenAdapter>(_assetsResourcesPath);
+            if (loaded != null)
+            {
+                return loaded;
+            }
+
+            loaded = Resources.Load<DefaultTweenAdapter>(_packageResourcesPath);
+            if (loaded != null)
+            {
+                return loaded;
+            }
+
+            DefaultTweenAdapter[] allFromResources = Resources.LoadAll<DefaultTweenAdapter>(string.Empty);
+            if (allFromResources != null && allFromResources.Length > 0)
+            {
+                return allFromResources[0];
+            }
+
+            DefaultTweenAdapter runtimeFallback = CreateInstance<DefaultTweenAdapter>();
+            runtimeFallback.name = $"{_assetNameNoExtension}_RuntimeFallback";
+            Debug.LogWarning(
+                "DefaultTweenAdapter asset was not found in Resources. " +
+                "Using a runtime-created fallback instance.");
+            return runtimeFallback;
+        }
 
         #region Transform and RectTransform
         public ITweenHandle MoveTo(Transform target, Vector3 position, float duration)
@@ -83,7 +136,7 @@ namespace AtMycelia.HyphaTween
 
         
         #endregion
-
+        
         #region Graphics
 
         public ITweenHandle FadeColor(Graphic target, Color endVal, float duration)

@@ -8,5 +8,6 @@
     "name": "Atelier Mycelia"
   },
   "dependencies": {
+    "com.ateliermycelia.unityutils": "1.2.2"
   }
 }

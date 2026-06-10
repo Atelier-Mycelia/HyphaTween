@@ -1,7 +1,9 @@
 {
     "name": "AtMycelia.HyphaTween.Core",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:315f594c192fac84b811333747e5ecb0"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
