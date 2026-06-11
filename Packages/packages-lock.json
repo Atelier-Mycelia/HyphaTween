@@ -1,13 +1,13 @@
 {
   "dependencies": {
-    "com.ateliermycelia.unityutils": {
-      "version": "https://github.com/Atelier-Mycelia/UnityUtils.git?path=Assets/AtMyceliaCommonLib",
+    "com.ateliermycelia.commonlib": {
+      "version": "https://github.com/Atelier-Mycelia/CommonLib.git?path=Assets/AtMyceliaCommonLib",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.textmeshpro": "3.0.6"
       },
-      "hash": "651b4e037b673a1c112cb02bd0f78159ea6ca00a"
+      "hash": "0565121a87ffb2c7b494e1a2612a28296a7315a5"
     },
     "com.unity.2d.animation": {
       "version": "9.2.0",

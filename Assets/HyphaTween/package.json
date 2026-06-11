@@ -1,6 +1,6 @@
 {
   "name": "com.ateliermycelia.hyphatween",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "displayName": "HyphaTween: Tweening Library",
   "description": "May be required by other Atelier Mycelia asset packages. For Hyphlow in particular, it works as a bridge for other\ntweening libraries to work with that visual scripting sys.",
   "unity": "2022.3",
@@ -8,6 +8,6 @@
     "name": "Atelier Mycelia"
   },
   "dependencies": {
-    "com.ateliermycelia.unityutils": "1.2.2"
+    "com.ateliermycelia.commonlib": "1.3.1"
   }
 }

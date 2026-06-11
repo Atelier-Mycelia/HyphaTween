@@ -6,6 +6,7 @@ namespace AtMycelia.HyphaTween
 {
     public class TweenManager : MonoBehaviour
     {
+        [SerializeField] private DefaultTweenAdapter _defaultAdapter;
         public static TweenManager S
         {
             get
@@ -32,6 +33,8 @@ namespace AtMycelia.HyphaTween
 
             _s = this;
         }
+
+        public DefaultTweenAdapter DefaultAdapter => _defaultAdapter;
 
         protected virtual void OnDestroy()
         {
