@@ -3,10 +3,8 @@ using UnityObj = UnityEngine.Object;
 
 namespace AtMycelia.HyphaTween
 {
-    public static class HyphaTweenRuntimeBootstrap
+    public static class HyphaTweenRuntimeBootstrapper
     {
-        
-
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void EnsureHyphaTweenHierarchy()
         {
