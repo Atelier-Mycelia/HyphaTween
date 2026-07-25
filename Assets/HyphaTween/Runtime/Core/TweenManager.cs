@@ -1,4 +1,3 @@
-using AtMycelia.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -49,7 +48,8 @@ namespace AtMycelia.HyphaTween
                     continue;
                 }
 
-                if (!Application.isPlaying)
+                bool inTheEditor = !Application.isPlaying;
+                if (inTheEditor)
                 {
                     DestroyImmediate(anchorFound);
                 }
@@ -147,24 +147,8 @@ namespace AtMycelia.HyphaTween
             _adapterAnchors.Remove(key);
         }
 
-        public void AddTween<T>(Tween<T> toAdd)
-        {
-            if (_activeTweens.ContainsKey(toAdd.ID))
-            {
-                _activeTweens[toAdd.ID].OnCompleteKill();
-                // ^Since the client may be trying to modify the same property on the same game object
-                // as another tween. Thus, we need to do this to avoid issues
-            }
-
-            _activeTweens[toAdd.ID] = toAdd;
-        }
-
-        protected Dictionary<string, ITween> _activeTweens = new();
-
         protected virtual void Update()
         {
-            _tweensToRemove.Clear();
-
             foreach (var pair in _activeTweens)
             {
                 ITween tween = pair.Value;
@@ -191,19 +175,48 @@ namespace AtMycelia.HyphaTween
                 }
             }
 
+        }
+
+        private readonly IList<ITween> _tweensToRemove = new List<ITween>();
+        protected Dictionary<string, ITween> _activeTweens = new();
+
+        protected virtual void LateUpdate()
+        {
             for (int i = 0; i < _tweensToRemove.Count; i++)
             {
                 var tween = _tweensToRemove[i];
                 RemoveTween(tween.ID);
             }
-        }
 
-        private readonly IList<ITween> _tweensToRemove = new List<ITween>();
+            _tweensToRemove.Clear();
+
+            foreach (var pair in _tweensToAdd)
+            {
+                _activeTweens[pair.Key] = pair.Value;
+            }
+
+            _tweensToAdd.Clear();
+        }
 
         public virtual void RemoveTween(string id)
         {
             _activeTweens.Remove(id);
         }
+
+        public void AddTween<T>(Tween<T> toAdd)
+        {
+            // Seems that something here screwed something up in the update loop
+            if (_activeTweens.ContainsKey(toAdd.ID))
+            {
+                _activeTweens[toAdd.ID].OnCompleteKill();
+                // ^Since the client may be trying to modify the same property on the same game object
+                // as another tween. Thus, we need to do this to avoid issues
+            }
+
+            _tweensToAdd[toAdd.ID] = toAdd;
+        }
+
+        protected Dictionary<string, ITween> _tweensToAdd = new();
 
         /// <summary>
         /// Kills all tween targeting the specified target
