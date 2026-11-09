@@ -3,13 +3,13 @@ using UnityObj = UnityEngine.Object;
 
 namespace AtMycelia.HyphaTween
 {
-    public static class HyphaTweenRuntimeBootstrapper
+    public static class RuntimeBootstrapper
     {
         /// <summary>
         /// Called by HyphaTweenMaintenanceRunner. MaintenanceRunner runs the Common lib's
         /// core startup first (priority-wise), so the AtMycelia root already exists here.
         /// </summary>
-        internal static void EnsureHyphaTweenHierarchy()
+        internal static void EnsureHierarchy()
         {
             if (OurRoot != null)
             {
