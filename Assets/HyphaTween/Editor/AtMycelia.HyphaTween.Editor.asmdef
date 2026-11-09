@@ -3,9 +3,12 @@
     "rootNamespace": "",
     "references": [
         "AtMycelia.HyphaTween.Core",
-        "AtMycelia.Common.Core"
+        "AtMycelia.Common.Core",
+        "AtMycelia.Common.Editor"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

@@ -5,16 +5,16 @@ namespace AtMycelia.HyphaTween
 {
     public static class HyphaTweenRuntimeBootstrapper
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void EnsureHyphaTweenHierarchy()
+        /// <summary>
+        /// Called by HyphaTweenMaintenanceRunner. MaintenanceRunner runs the Common lib's
+        /// core startup first (priority-wise), so the AtMycelia root already exists here.
+        /// </summary>
+        internal static void EnsureHyphaTweenHierarchy()
         {
             if (OurRoot != null)
             {
                 return;
             }
-
-            RootBootstrapper.EnsureRoot();
-            var atMyceliaRoot = RootBootstrapper.Root;
 
             OurRoot = CreateOurRoot();
 
@@ -24,6 +24,7 @@ namespace AtMycelia.HyphaTween
                 return;
             }
 
+            var atMyceliaRoot = GameObjectRootBootstrapper.Root;
             OurRoot.transform.SetParent(atMyceliaRoot.transform);
         }
 

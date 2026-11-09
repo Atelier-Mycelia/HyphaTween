@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.ateliermycelia.commonlib": "https://github.com/Atelier-Mycelia/CommonLib.git?path=Assets/AtMyceliaCommonLib",
+    "com.ateliermycelia.commonlib": "https://github.com/Atelier-Mycelia/CommonLib.git?path=Assets/AtMyceliaCommonLib#v1.4.1Dev",
     "com.unity.collab-proxy": "2.12.4",
     "com.unity.feature.2d": "2.0.1",
     "com.unity.ide.rider": "3.0.36",
